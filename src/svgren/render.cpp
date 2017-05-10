@@ -9,6 +9,7 @@
 #	include <cairo.h>
 #else
 #	include <cairo/cairo.h>
+#include <utki/math.hpp>
 #endif
 
 #include "render.hpp"
@@ -34,7 +35,7 @@ std::tuple<real, real> rotate(real x, real y, real angle){
 
 //convert degrees to radians
 real degToRad(real deg){
-	return deg * real(M_PI) / real(180);
+	return deg * utki::pi<real>() / real(180);
 }
 
 
@@ -704,7 +705,7 @@ public:
 				this->lengthToPx(e.cy, 1),
 				this->lengthToPx(e.r),
 				0,
-				2 * M_PI
+				2 * utki::pi<double>()
 			);
 		
 		this->renderCurrentShape(e);
@@ -781,7 +782,7 @@ public:
 		cairo_save(this->cr);
 		cairo_translate (this->cr, this->lengthToPx(e.cx, 0), this->lengthToPx(e.cy, 1));
 		cairo_scale (this->cr, this->lengthToPx(e.rx, 0), this->lengthToPx(e.ry, 1));
-		cairo_arc(this->cr, 0, 0, 1, 0, 2 * M_PI);
+		cairo_arc(this->cr, 0, 0, 1, 0, 2 * utki::pi<double>());
 		cairo_close_path(this->cr);
 		cairo_restore (this->cr);
 		
@@ -826,7 +827,7 @@ public:
 			cairo_save (this->cr);
 			cairo_translate (this->cr, this->lengthToPx(e.x, 0) + this->lengthToPx(e.width, 0) - this->lengthToPx(rx, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(ry, 1));
 			cairo_scale (this->cr, this->lengthToPx(rx, 0), this->lengthToPx(ry, 1));
-			cairo_arc (this->cr, 0, 0, 1, -M_PI / 2, 0);
+			cairo_arc (this->cr, 0, 0, 1, -utki::pi<double>() / 2, 0);
 			cairo_restore (this->cr);
 			
 			cairo_line_to(this->cr, this->lengthToPx(e.x, 0) + this->lengthToPx(e.width, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(e.height, 1) - this->lengthToPx(ry, 1));
@@ -834,7 +835,7 @@ public:
 			cairo_save (this->cr);
 			cairo_translate (this->cr, this->lengthToPx(e.x, 0) + this->lengthToPx(e.width, 0) - this->lengthToPx(rx, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(e.height, 1) - this->lengthToPx(ry, 1));
 			cairo_scale (this->cr, this->lengthToPx(rx, 0), this->lengthToPx(ry, 1));
-			cairo_arc (this->cr, 0, 0, 1, 0, M_PI / 2);
+			cairo_arc (this->cr, 0, 0, 1, 0, utki::pi<double>() / 2);
 			cairo_restore (this->cr);
 			
 			cairo_line_to(this->cr, this->lengthToPx(e.x, 0) + this->lengthToPx(rx, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(e.height, 1));
@@ -842,7 +843,7 @@ public:
 			cairo_save (this->cr);
 			cairo_translate (this->cr, this->lengthToPx(e.x, 0) + this->lengthToPx(rx, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(e.height, 1) - this->lengthToPx(ry, 1));
 			cairo_scale (this->cr, this->lengthToPx(rx, 0), this->lengthToPx(ry, 1));
-			cairo_arc (this->cr, 0, 0, 1, M_PI / 2, M_PI);
+			cairo_arc (this->cr, 0, 0, 1, utki::pi<double>() / 2, utki::pi<double>());
 			cairo_restore (this->cr);
 			
 			cairo_line_to(this->cr, this->lengthToPx(e.x, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(ry, 1));
@@ -850,7 +851,7 @@ public:
 			cairo_save (this->cr);
 			cairo_translate (this->cr, this->lengthToPx(e.x, 0) + this->lengthToPx(rx, 0), this->lengthToPx(e.y, 1) + this->lengthToPx(ry, 1));
 			cairo_scale (this->cr, this->lengthToPx(rx, 0), this->lengthToPx(ry, 1));
-			cairo_arc (this->cr, 0, 0, 1, M_PI, M_PI * 3 / 2);
+			cairo_arc (this->cr, 0, 0, 1, utki::pi<double>(), utki::pi<double>() * 3 / 2);
 			cairo_restore (this->cr);
 			
 			cairo_close_path(this->cr);
